@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asmudin | Web Developer & Spesialis Sistem Informasi</title>
+  <meta name="description" content="Portofolio profesional Asmudin: Web Developer & Spesialis Sistem Informasi berbasis CodeIgniter, MySQL, JavaScript, HTML, CSS, dan grafis 3D interaktif.">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%3E<text y=%2222%22 font-size=%2222%22>⚡</text></svg>">
+
+  <!-- Google Fonts: Syne & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-theme="violet">
+
+  <!-- Custom Cursor Glow -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-outline" id="cursorOutline"></div>
+
+  <!-- 3D Canvas Background -->
+  <div id="canvas-container">
+    <canvas id="webgl-canvas"></canvas>
+  </div>
+
+  <!-- Ambient Background Glows -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="brand-logo">
+        <span class="logo-icon"><i class="fa-solid fa-cube"></i></span>
+        <span class="logo-text">ASMUDIN<span class="text-accent">.DEV</span></span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#hero" class="nav-item active"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="#about" class="nav-item"><i class="fa-solid fa-user-astronaut"></i> Profil</a>
+        <a href="#skills" class="nav-item"><i class="fa-solid fa-microchip"></i> Keahlian</a>
+        <a href="#projects" class="nav-item"><i class="fa-solid fa-laptop-code"></i> Proyek</a>
+        <a href="#interactive3d" class="nav-item"><i class="fa-solid fa-shapes"></i> 3D Lab</a>
+        <a href="#contact" class="nav-item"><i class="fa-solid fa-paper-plane"></i> Kontak</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Theme Accent Picker -->
+        <div class="theme-dropdown" title="Ubah Tema Warna">
+          <button class="theme-btn" id="themeBtn" aria-label="Ganti Warna Aksen">
+            <span class="theme-dot"></span>
+          </button>
+          <div class="theme-menu" id="themeMenu">
+            <button class="theme-option violet active" data-color="violet"><span></span> Cyber Violet</button>
+            <button class="theme-option cyan" data-color="cyan"><span></span> Electric Cyan</button>
+            <button class="theme-option emerald" data-color="emerald"><span></span> Neon Emerald</button>
+            <button class="theme-option rose" data-color="rose"><span></span> Solar Amber</button>
+          </div>
+        </div>
+
+        <!-- Audio FX Toggle -->
+        <button class="audio-toggle-btn" id="audioToggle" title="Efek Suara Sci-Fi (Klik)">
+          <i class="fa-solid fa-volume-high" id="audioIcon"></i>
+        </button>
+
+        <!-- CTA Resume -->
+        <a href="#contact" class="btn-primary-sm btn-glow">
+          <span>Mari Berkolaborasi</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+
+        <!-- Mobile Menu Hamburger -->
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Buka Menu Navigasi">
+          <i class="fa-solid fa-bars-staggered"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="badge-status">
+            <span class="status-indicator"></span>
+            <span>Tersedia untuk Proyek & Pengembangan Sistem</span>
+          </div>
+
+          <h1 class="hero-title">
+            Membangun Sistem Informasi <br>
+            <span class="text-gradient">Handal, Terstruktur</span> & <br>
+            Visual 3D Modern.
+          </h1>
+
+          <p class="hero-role">
+            Saya seorang <span class="typing-text" id="typingText"></span><span class="typing-cursor">|</span>
+          </p>
+
+          <p class="hero-description">
+            Spesialis pengembangan aplikasi web berbasis <strong>HTML, CSS, JavaScript, MySQL, CodeIgniter</strong>, dan arsitektur <strong>Sistem Informasi</strong> yang aman, terintegrasi, serta berpenampilan interaktif 3D.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#projects" class="btn-primary btn-glow">
+              <i class="fa-solid fa-rocket"></i>
+              <span>Lihat Sistem & Proyek</span>
+            </a>
+            <a href="#interactive3d" class="btn-secondary">
+              <i class="fa-solid fa-cube"></i>
+              <span>Eksperimen 3D</span>
+            </a>
+            <a href="#about" class="btn-outline">
+              <i class="fa-solid fa-id-card"></i>
+              <span>Profil Saya</span>
+            </a>
+          </div>
+
+          <!-- Hero Metrics -->
+          <div class="hero-metrics">
+            <div class="metric-card">
+              <div class="metric-num"><span class="counter" data-target="5">0</span>+</div>
+              <div class="metric-label">Tahun Pengalaman</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-num"><span class="counter" data-target="35">0</span>+</div>
+              <div class="metric-label">Sistem & Web Selesai</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-num"><span class="counter" data-target="100">0</span>%</div>
+              <div class="metric-label">Integritas Database</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Interactive Control Widget Over Hero -->
+        <div class="hero-interactive-badge">
+          <div class="interactive-tag">
+            <i class="fa-solid fa-hand-pointer"></i> Putar & Tarik Objek 3D di Layar
+          </div>
+          <div class="hero-3d-hint">
+            <span>Interaksi Mouse Parallax Real-Time</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-indicator">
+        <a href="#about" aria-label="Gulir ke Bawah">
+          <div class="mouse-icon">
+            <div class="wheel"></div>
+          </div>
+          <span class="scroll-text">GULIR KE BAWAH</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="section about-section" id="about">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag"><i class="fa-solid fa-terminal"></i> BIOGRAFI & FILOSOFI</div>
+          <h2 class="section-title">Dedikasi untuk <span class="text-gradient">Sistem Informasi Berkualitas</span></h2>
+          <p class="section-subtitle">Mengintegrasikan basis data yang solid, logika backend yang presisi, dan antarmuka web modern yang mudah digunakan.</p>
+        </div>
+
+        <div class="about-grid">
+          <!-- Left: 3D Holographic Profile Card -->
+          <div class="about-card-3d card-tilt" data-tilt>
+            <div class="card-glass-glow"></div>
+            <div class="avatar-wrapper">
+              <div class="avatar-ring ring-1"></div>
+              <div class="avatar-ring ring-2"></div>
+              <div class="avatar-glow"></div>
+              <div class="avatar-inner">
+                <i class="fa-solid fa-user-astronaut avatar-icon"></i>
+              </div>
+            </div>
+            <h3 class="card-name">Asmudin</h3>
+            <p class="card-subtitle">Web Developer & Spesialis Sistem Informasi</p>
+            
+            <div class="card-info-list">
+              <div class="info-row">
+                <span class="info-label"><i class="fa-solid fa-location-dot"></i> Lokasi</span>
+                <span class="info-val">Indonesia</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label"><i class="fa-solid fa-clock"></i> Zona Waktu</span>
+                <span class="info-val">WIB / GMT+7</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label"><i class="fa-solid fa-briefcase"></i> Status</span>
+                <span class="info-val text-success">Siap Menerima Proyek</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label"><i class="fa-solid fa-code"></i> Fokus</span>
+                <span class="info-val">CI, MySQL, JS, Web 3D</span>
+              </div>
+            </div>
+
+            <div class="card-social-links">
+              <a href="https://github.com" target="_blank" rel="noopener" class="social-icon" title="GitHub"><i class="fa-brands fa-github"></i></a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-icon" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="mailto:asmudin.dev@gmail.com" class="social-icon" title="Email"><i class="fa-solid fa-envelope"></i></a>
+              <a href="#contact" class="social-icon" title="Kontak Langsung"><i class="fa-solid fa-paper-plane"></i></a>
+            </div>
+          </div>
+
+          <!-- Right: About Details & Core Pillars -->
+          <div class="about-details">
+            <div class="terminal-box">
+              <div class="terminal-header">
+                <div class="terminal-buttons">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+                <span class="terminal-title">asmudin@system:~/about.md</span>
+              </div>
+              <div class="terminal-body">
+                <p><span class="prompt-text">> whoami</span></p>
+                <p class="terminal-desc">
+                  Halo! Saya <strong>Asmudin</strong>, seorang Web Developer dan Pengembang Sistem Informasi yang berfokus pada pembangunan aplikasi web berbasis <strong>HTML, CSS, JavaScript, MySQL, dan framework CodeIgniter</strong>, dipadukan dengan sentuhan visual grafis 3D interaktif.
+                </p>
+                <p class="terminal-desc">
+                  Saya berpengalaman merancang arsitektur sistem informasi dari hulu ke hilir: mulai dari perancangan skema database relasional MySQL yang teroptimasi, alur logika proses bisnis (CRUD dinamis, otentikasi multi-level hak akses, validasi data, pelaporan PDF/Excel), hingga antarmuka pengguna responsif yang interaktif dan mudah dioperasikan di berbagai perangkat.
+                </p>
+              </div>
+            </div>
+
+            <!-- Pillars Grid -->
+            <div class="pillars-grid">
+              <div class="pillar-card card-tilt" data-tilt>
+                <div class="pillar-icon"><i class="fa-solid fa-diagram-project"></i></div>
+                <h4>Sistem Informasi Terintegrasi</h4>
+                <p>Merancang alur proses bisnis yang efisien, otomasi manajemen data, kontrol hak akses bertingkat, dan pelaporan akurat.</p>
+              </div>
+
+              <div class="pillar-card card-tilt" data-tilt>
+                <div class="pillar-icon"><i class="fa-solid fa-database"></i></div>
+                <h4>MySQL & Optimasi Query</h4>
+                <p>Desain relasional ternormalisasi (1NF-3NF), query JOIN efisien, indexing indeks performa tinggi, dan integritas data ACID.</p>
+              </div>
+
+              <div class="pillar-card card-tilt" data-tilt>
+                <div class="pillar-icon"><i class="fa-solid fa-fire"></i></div>
+                <h4>Framework CodeIgniter</h4>
+                <p>Pola arsitektur MVC yang bersih, routing terstruktur, modul CRUD cepat, proteksi CSRF, sanitasi input, dan pencegahan SQL Injection.</p>
+              </div>
+
+              <div class="pillar-card card-tilt" data-tilt>
+                <div class="pillar-icon"><i class="fa-solid fa-cubes"></i></div>
+                <h4>HTML, CSS, JS & 3D Web</h4>
+                <p>Struktur semantik HTML5, styling CSS3 responsif, interaktivitas AJAX/DOM JavaScript, dan visual spasial 3D WebGL modern.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section class="section skills-section" id="skills">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag"><i class="fa-solid fa-layer-group"></i> STACK TEKNOLOGI</div>
+          <h2 class="section-title">Keahlian & <span class="text-gradient">Arsenal Perkakas</span></h2>
+          <p class="section-subtitle">Fondasi teknologi utama yang saya gunakan dalam membangun sistem informasi dan website profesional.</p>
+        </div>
+
+        <!-- Skill Filter Tabs -->
+        <div class="skill-tabs">
+          <button class="skill-tab-btn active" data-filter="all">Semua Stack</button>
+          <button class="skill-tab-btn" data-filter="backend">CodeIgniter & DB</button>
+          <button class="skill-tab-btn" data-filter="frontend">HTML, CSS & JS</button>
+          <button class="skill-tab-btn" data-filter="system">Sistem Informasi</button>
+        </div>
+
+        <div class="skills-grid" id="skillsGrid">
+          <!-- Skill: CodeIgniter -->
+          <div class="skill-card card-tilt" data-category="backend" data-tilt>
+            <div class="skill-header">
+              <div class="skill-icon-box"><i class="fa-solid fa-fire text-accent"></i></div>
+              <div class="skill-meta">
+                <h4>CodeIgniter (PHP)</h4>
+                <span class="skill-badge">Tingkat Ahli</span>
+              </div>
+            </div>
+            <p class="skill-desc">Arsitektur MVC, Query Builder, Validasi Form, Auth & Session, CSRF Protection, dan pembuatan RESTful API.</p>
+            <div class="skill-meter"><div class="meter-fill" style="width: 95%;"></div></div>
+            <div class="meter-text"><span>Keahlian</span><span>95%</span></div>
+          </div>
+
+          <!-- Skill: MySQL Database -->
+          <div class="skill-card card-tilt" data-category="backend" data-tilt>
+            <div class="skill-header">
+              <div class="skill-icon-box"><i class="fa-solid fa-database"></i></div>
+              <div class="skill-meta">
+                <h4>MySQL Relational DB</h4>
+                <span class="skill-badge">Tingkat Ahli</span>
+              </div>
+            </div>
+            <p class="skill-desc">Perancangan skema ERD, relasi Foreign Key, Query JOIN kompleks, Stored Procedure, Indexing, dan Backup data.</p>
+            <div class="skill-meter"><div class="meter-fill" style="width: 94%;"></div></div>
+            <div class="meter-text"><span>Keahlian</span><span>94%</span></div>
+          </div>
+
+          <!-- Skill: HTML5 & Semantics -->
+          <div class="skill-card card-tilt" data-category="frontend" data-tilt>
+            <div class="skill-header">
+              <div class="skill-icon-box"><i class="fa-brands fa-html5"></i></div>
+              <div class="skill-meta">
+                <h4>HTML5 Semantik</h4>
+                <span class="skill-badge">Tingkat Ahli</span>
+              </div>
+            </div>
+            <p class="skill-desc">Struktur dokumen terstandar W3C, aksesibilitas ramah pengguna, SEO meta tags, dan integrasi elemen form interaktif.</p>
+            <div class="skill-meter"><div class="meter-fill" style="width: 96%;"></div></div>
+            <div class="meter-text"><span>Keahlian</span><span>96%</span></div>
+          </div>
+
+          <!-- Skill: CSS3 & Modern Styling -->
+          <div class="skill-card card-tilt" data-category="frontend" data-tilt>
+            <div class="skill-header">
+              <div class="skill-icon-box"><i class="fa-brands fa-css3-alt"></i></div>
+              <div class="skill-meta">
+                <h4>CSS3 & Responsive Design</h4>
+                <span class="skill-badge">Tingkat Ahli</span>
+              </div>
+            </div>
+            <p class="skill-desc">Flexbox, CSS Grid, media query responsif, Glassmorphism modern, transisi halus, Bootstrap & styling kustom.</p>
+            <div class="skill-meter"><div class="meter-fill" style="width: 93%;"></div></div>
+            <div class="meter-text"><span>Keahlian</span><span>93%</span></div>
+          </div>
+
+          <!-- Skill: JavaScript (ES6+) -->
+          <div class="skill-card card-tilt" data-category="frontend" data-tilt>
+            <div class="skill-header">
+              <div class="skill-icon-box"><i class="fa-brands fa-js"></i></div>
+              <div class="skill-meta">
+                <h4>JavaScript (ES6+)</h4>
+                <span class="skill-badge">Mahir</span>
+              </div>
+            </div>
+            <p class="skill-desc">Manipulasi DOM, AJAX / Fetch API tanpa reload halaman, event handling asinkron, validasi interaktif, dan library JS.</p>
+            <div class="skill-meter"><div class="meter-fill" style="width: 91%;"></div></div>
+            <div class="meter-text"><span>Keahlian</span><span>91%</span></div>
+          </div>
+
+          <!-- Skill: Sistem Informasi Architecture -->
+          <div class="skill-card card-tilt" data-category="system" data-tilt>
+            <div class="skill-header">
+              <div class="skill-icon-box"><i class="fa-solid fa-network-wired"></i></div>
+              <div class="skill-meta">
+                <h4>Sistem Informasi & Bisnis</h4>
+                <span class="skill-badge">Tingkat Ahli</span>
+              </div>
+            </div>
+            <p class="skill-desc">Analisis kebutuhan, flowchart alur data (DFD/UML), sistem inventaris, presensi, kependudukan, & pelaporan PDF.</p>
+            <div class="skill-meter"><div class="meter-fill" style="width: 95%;"></div></div>
+            <div class="meter-text"><span>Keahlian</span><span>95%</span></div>
+          </div>
+
+          <!-- Skill: Three.js 3D WebGL -->
+          <div class="skill-card card-tilt" data-category="frontend" data-tilt>
+            <div class="skill-header">
+              <div class="skill-icon-box"><i class="fa-solid fa-cube"></i></div>
+              <div class="skill-meta">
+                <h4>Three.js & Visual 3D</h4>
+                <span class="skill-badge">Mahir</span>
+              </div>
+            </div>
+            <p class="skill-desc">Rendering objek spasial 3D, particle galaxy, pencahayaan WebGL, kontrol kamera interaktif, dan animasi 60 FPS.</p>
+            <div class="skill-meter"><div class="meter-fill" style="width: 86%;"></div></div>
+            <div class="meter-text"><span>Keahlian</span><span>86%</span></div>
+          </div>
+
+          <!-- Skill: Keamanan & Deployment -->
+          <div class="skill-card card-tilt" data-category="system" data-tilt>
+            <div class="skill-header">
+              <div class="skill-icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+              <div class="skill-meta">
+                <h4>Keamanan Web & Deploy</h4>
+                <span class="skill-badge">Mahir</span>
+              </div>
+            </div>
+            <p class="skill-desc">Pencegahan SQL Injection, sanitasi input XSS, hash password Bcrypt, Git version control, dan cPanel/Apache hosting.</p>
+            <div class="skill-meter"><div class="meter-fill" style="width: 89%;"></div></div>
+            <div class="meter-text"><span>Keahlian</span><span>89%</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3D LAB / INTERACTIVE PLAYGROUND -->
+    <section class="section lab-section" id="interactive3d">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag"><i class="fa-solid fa-flask-vial"></i> EXPERIMENTAL LAB</div>
+          <h2 class="section-title">Studio Kontrol <span class="text-gradient">Objek 3D Real-Time</span></h2>
+          <p class="section-subtitle">Sesuaikan geometri pusat 3D di layar secara instan dengan panel kontrol interaktif di bawah ini.</p>
+        </div>
+
+        <div class="lab-dashboard card-tilt" data-tilt>
+          <div class="lab-controls-grid">
+            <!-- Morph Shape -->
+            <div class="control-box">
+              <label><i class="fa-solid fa-shapes"></i> Bentuk Geometri 3D</label>
+              <div class="control-btn-group">
+                <button class="lab-btn active" data-shape="icosahedron">Quantum Core</button>
+                <button class="lab-btn" data-shape="torus">Torus Knot</button>
+                <button class="lab-btn" data-shape="octahedron">Cyber Crystal</button>
+                <button class="lab-btn" data-shape="sphere">Energy Sphere</button>
+              </div>
+            </div>
+
+            <!-- Wireframe & Particles -->
+            <div class="control-box">
+              <label><i class="fa-solid fa-sliders"></i> Efek Visual</label>
+              <div class="control-btn-group">
+                <button class="lab-btn active" id="btnToggleWireframe">Wireframe: ON</button>
+                <button class="lab-btn active" id="btnToggleOrbitRings">Orbit Rings: ON</button>
+                <button class="lab-btn active" id="btnToggleParticles">Starfield: ON</button>
+              </div>
+            </div>
+
+            <!-- Rotation Speed Slider -->
+            <div class="control-box">
+              <div class="slider-header">
+                <label for="speedRange"><i class="fa-solid fa-gauge"></i> Kecepatan Rotasi</label>
+                <span id="speedVal">1.0x</span>
+              </div>
+              <input type="range" id="speedRange" min="0" max="3" step="0.1" value="1" class="custom-slider">
+            </div>
+
+            <!-- Particle Density Slider -->
+            <div class="control-box">
+              <div class="slider-header">
+                <label for="particleRange"><i class="fa-solid fa-atom"></i> Kepadatan Partikel</label>
+                <span id="particleVal">1800</span>
+              </div>
+              <input type="range" id="particleRange" min="500" max="3000" step="100" value="1800" class="custom-slider">
+            </div>
+          </div>
+
+          <div class="lab-footer">
+            <div class="lab-tip">
+              <i class="fa-solid fa-lightbulb"></i>
+              <span>Tips: Klik dan seret (drag) pada area mana saja di halaman untuk memutar kamera 3D ke berbagai sudut pandang!</span>
+            </div>
+            <button class="btn-secondary" id="btnReset3D">
+              <i class="fa-solid fa-rotate-left"></i> Reset Kamera & Posisi
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section class="section projects-section" id="projects">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag"><i class="fa-solid fa-briefcase"></i> SHOWCASE PORTFOLIO</div>
+          <h2 class="section-title">Karya & <span class="text-gradient">Proyek Sistem Informasi</span></h2>
+          <p class="section-subtitle">Studi kasus nyata dari sistem aplikasi web, manajemen database, dan solusi bisnis digital yang telah dikembangkan.</p>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Project 1 -->
+          <div class="project-card card-tilt" data-tilt>
+            <div class="project-thumb-wrapper">
+              <div class="project-thumb-glow glow-cyan"></div>
+              <div class="project-badge-type">Sistem Informasi & Visual 3D</div>
+              <div class="project-preview-mockup">
+                <div class="mockup-screen-header">
+                  <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+                  <span class="mock-url">https://sim-aset-3d.local</span>
+                </div>
+                <div class="mockup-visual preview-aetheria">
+                  <div class="visual-holo-sphere"></div>
+                  <div class="visual-grid-floor"></div>
+                </div>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="ptag">CodeIgniter 4</span>
+                <span class="ptag">MySQL</span>
+                <span class="ptag">Three.js</span>
+                <span class="ptag">Bootstrap 5</span>
+              </div>
+              <h3 class="project-title">SIM-Aset 3D: Sistem Manajemen Inventaris</h3>
+              <p class="project-description">
+                Sistem informasi manajemen aset dan inventaris kantor dengan visualisasi denah ruang 3D interaktif, pencatatan mutasi barang, barcode generator, dan pelaporan otomatis.
+              </p>
+              <div class="project-links">
+                <button class="btn-proj-detail" data-proj="0">
+                  <i class="fa-solid fa-circle-info"></i> Detail Studi Kasus
+                </button>
+                <a href="#projects" class="proj-action-link" title="Detail Sistem"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                <a href="https://github.com" target="_blank" rel="noopener" class="proj-action-link" title="Source Code"><i class="fa-brands fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div class="project-card card-tilt" data-tilt>
+            <div class="project-thumb-wrapper">
+              <div class="project-thumb-glow glow-violet"></div>
+              <div class="project-badge-type">Pelayanan Publik & Administrasi</div>
+              <div class="project-preview-mockup">
+                <div class="mockup-screen-header">
+                  <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+                  <span class="mock-url">https://sip-desa.local</span>
+                </div>
+                <div class="mockup-visual preview-fintech">
+                  <div class="visual-bars">
+                    <span style="height: 45%;"></span>
+                    <span style="height: 70%;"></span>
+                    <span style="height: 60%;"></span>
+                    <span style="height: 90%;"></span>
+                    <span style="height: 75%;"></span>
+                  </div>
+                  <div class="visual-sparkline"></div>
+                </div>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="ptag">CodeIgniter</span>
+                <span class="ptag">MySQL</span>
+                <span class="ptag">JavaScript AJAX</span>
+                <span class="ptag">DomPDF</span>
+              </div>
+              <h3 class="project-title">SIP-Desa: Sistem Pelayanan Kependudukan</h3>
+              <p class="project-description">
+                Aplikasi pelayanan administrasi warga terpadu untuk pengajuan surat online, pencatatan arsip digital penduduk, grafik demografi otomatis, dan cetak laporan PDF resmi instan.
+              </p>
+              <div class="project-links">
+                <button class="btn-proj-detail" data-proj="1">
+                  <i class="fa-solid fa-circle-info"></i> Detail Studi Kasus
+                </button>
+                <a href="#projects" class="proj-action-link" title="Detail Sistem"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                <a href="https://github.com" target="_blank" rel="noopener" class="proj-action-link" title="Source Code"><i class="fa-brands fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3 -->
+          <div class="project-card card-tilt" data-tilt>
+            <div class="project-thumb-wrapper">
+              <div class="project-thumb-glow glow-emerald"></div>
+              <div class="project-badge-type">SIAKAD & Edukasi</div>
+              <div class="project-preview-mockup">
+                <div class="mockup-screen-header">
+                  <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+                  <span class="mock-url">https://siakad-terpadu.local</span>
+                </div>
+                <div class="mockup-visual preview-ai">
+                  <div class="visual-neural-nodes">
+                    <span class="node n1"></span>
+                    <span class="node n2"></span>
+                    <span class="node n3"></span>
+                    <span class="node n4"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="ptag">PHP CodeIgniter</span>
+                <span class="ptag">MySQL</span>
+                <span class="ptag">HTML5 / CSS3</span>
+                <span class="ptag">Chart.js</span>
+              </div>
+              <h3 class="project-title">SIAKAD: Portal Akademik & Penilaian Terpadu</h3>
+              <p class="project-description">
+                Portal akademik multi-level (Admin, Dosen, Mahasiswa) untuk kartu rencana studi (KRS), absensi, rekap nilai IPK otomatis, jadwal kuliah interaktif, dan ekspor transkrip nilai.
+              </p>
+              <div class="project-links">
+                <button class="btn-proj-detail" data-proj="2">
+                  <i class="fa-solid fa-circle-info"></i> Detail Studi Kasus
+                </button>
+                <a href="#projects" class="proj-action-link" title="Detail Sistem"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                <a href="https://github.com" target="_blank" rel="noopener" class="proj-action-link" title="Source Code"><i class="fa-brands fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 4 -->
+          <div class="project-card card-tilt" data-tilt>
+            <div class="project-thumb-wrapper">
+              <div class="project-thumb-glow glow-amber"></div>
+              <div class="project-badge-type">Kesehatan & Rekam Medis</div>
+              <div class="project-preview-mockup">
+                <div class="mockup-screen-header">
+                  <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+                  <span class="mock-url">https://klinik-care.local</span>
+                </div>
+                <div class="mockup-visual preview-saas">
+                  <div class="visual-canvas-layer">
+                    <div class="layer-item l1"></div>
+                    <div class="layer-item l2"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="ptag">CodeIgniter</span>
+                <span class="ptag">MySQL</span>
+                <span class="ptag">JavaScript AJAX</span>
+                <span class="ptag">CSS Grid</span>
+              </div>
+              <h3 class="project-title">KlinikCare: Sistem Rekam Medis & Antrean</h3>
+              <p class="project-description">
+                Aplikasi manajemen operasional klinik terintegrasi, meliputi pendaftaran pasien, antrean poli real-time, pencatatan rekam medis elektronik (RME), resep obat, dan billing kasir.
+              </p>
+              <div class="project-links">
+                <button class="btn-proj-detail" data-proj="3">
+                  <i class="fa-solid fa-circle-info"></i> Detail Studi Kasus
+                </button>
+                <a href="#projects" class="proj-action-link" title="Detail Sistem"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                <a href="https://github.com" target="_blank" rel="noopener" class="proj-action-link" title="Source Code"><i class="fa-brands fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE & TIMELINE -->
+    <section class="section timeline-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag"><i class="fa-solid fa-clock-rotate-left"></i> REKAM JEJAK</div>
+          <h2 class="section-title">Perjalanan <span class="text-gradient">Karier Profesional</span></h2>
+          <p class="section-subtitle">Pengalaman merancang sistem informasi terintegrasi dan pengembangan aplikasi web.</p>
+        </div>
+
+        <div class="timeline-container">
+          <div class="timeline-line"></div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content card-tilt" data-tilt>
+              <div class="timeline-meta">
+                <span class="timeline-year">2023 — Sekarang</span>
+                <span class="timeline-company"><i class="fa-solid fa-building"></i> Lead Web & System Developer</span>
+              </div>
+              <h3>Senior Developer Sistem Informasi & CodeIgniter</h3>
+              <p>Memimpin perancangan sistem informasi enterprise, merancang arsitektur database relasional MySQL berskala ratusan ribu baris data, dan mengintegrasikan dashboard visual modern interaktif.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content card-tilt" data-tilt>
+              <div class="timeline-meta">
+                <span class="timeline-year">2021 — 2023</span>
+                <span class="timeline-company"><i class="fa-solid fa-building"></i> Full-Stack Web Developer</span>
+              </div>
+              <h3>Pengembang Aplikasi Web (CodeIgniter & MySQL)</h3>
+              <p>Membangun berbagai modul CRUD dinamis, integrasi pelaporan otomatis PDF/Excel, optimasi kecepatan query MySQL, dan perbaikan keamanan aplikasi web dari ancaman SQL Injection.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content card-tilt" data-tilt>
+              <div class="timeline-meta">
+                <span class="timeline-year">2019 — 2021</span>
+                <span class="timeline-company"><i class="fa-solid fa-building"></i> Frontend & Database Specialist</span>
+              </div>
+              <h3>Web Developer (HTML, CSS, JavaScript & MySQL)</h3>
+              <p>Mengembangkan antarmuka web responsif, memastikan aksesibilitas di semua browser, mengimplementasikan interaktivitas AJAX JavaScript tanpa reload, dan perancangan skema data.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section testimonials-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag"><i class="fa-solid fa-comments"></i> ULASAN & TESTIMONI</div>
+          <h2 class="section-title">Apa Kata <span class="text-gradient">Klien & Pengguna Sistem</span></h2>
+          <p class="section-subtitle">Dampak nyata dari sistem informasi dan aplikasi web yang telah dibangun oleh Asmudin.</p>
+        </div>
+
+        <div class="testimonials-grid">
+          <div class="testimonial-card card-tilt" data-tilt>
+            <div class="testi-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="testi-quote">
+              "Sistem informasi inventaris yang dikembangkan Asmudin sangat membantu efisiensi kantor kami. Alur datanya rapi, pencarian cepat dengan MySQL yang teroptimasi, dan tampilannya sangat modern!"
+            </p>
+            <div class="testi-author">
+              <div class="author-avatar"><i class="fa-solid fa-user-tie"></i></div>
+              <div class="author-info">
+                <h4>Very Saputra, S.Kom</h4>
+                <span>Kepala Bagian IT & Operasional</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card card-tilt" data-tilt>
+            <div class="testi-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="testi-quote">
+              "Asmudin memiliki keahlian CodeIgniter dan MySQL yang sangat solid. Struktur kodenya bersih (clean code), mudah dikembangkan lebih lanjut, dan keamanannya terjamin."
+            </p>
+            <div class="testi-author">
+              <div class="author-avatar"><i class="fa-solid fa-user-gear"></i></div>
+              <div class="author-info">
+                <h4>Anggun, S.Kom</h4>
+                <span>Senior Software Architect</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card card-tilt" data-tilt>
+            <div class="testi-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="testi-quote">
+              "Sentuhan visual 3D dan antarmuka responsif yang dibuat Asmudin membuat aplikasi sistem informasi kami tidak kaku dan sangat nyaman digunakan oleh seluruh staf lapangan."
+            </p>
+            <div class="testi-author">
+              <div class="author-avatar"><i class="fa-solid fa-user-check"></i></div>
+              <div class="author-info">
+                <h4>Azlina, S.Kom</h4>
+                <span>Product Manager</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="section contact-section" id="contact">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag"><i class="fa-solid fa-envelope-open-text"></i> HUBUNGI SAYA</div>
+          <h2 class="section-title">Mari Wujudkan <span class="text-gradient">Sistem Informasi Anda</span></h2>
+          <p class="section-subtitle">Butuh aplikasi web, sistem manajemen database, atau pengembangan fitur baru? Hubungi Asmudin sekarang!</p>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Left: Info & Fast Copy -->
+          <div class="contact-info-card card-tilt" data-tilt>
+            <h3>Mari Berdiskusi</h3>
+            <p class="contact-text">
+              Saya siap membantu Anda merancang dan mengembangkan sistem informasi kustom, pembuatan website instansi/bisnis berbasis CodeIgniter, MySQL, HTML, CSS, JavaScript, hingga antarmuka 3D interaktif.
+            </p>
+
+            <div class="contact-methods">
+              <div class="contact-method-item">
+                <div class="c-icon"><i class="fa-solid fa-envelope"></i></div>
+                <div class="c-detail">
+                  <span class="c-label">Email Langsung</span>
+                  <span class="c-val" id="emailToCopy">asmudin.dev@gmail.com</span>
+                </div>
+                <button class="btn-copy-email" id="btnCopyEmail" title="Salin Email">
+                  <i class="fa-regular fa-copy"></i>
+                </button>
+              </div>
+
+              <div class="contact-method-item">
+                <div class="c-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                <div class="c-detail">
+                  <span class="c-label">WhatsApp / Kontak</span>
+                  <span class="c-val">+62 812-3456-7890</span>
+                </div>
+              </div>
+
+              <div class="contact-method-item">
+                <div class="c-icon"><i class="fa-solid fa-location-dot"></i></div>
+                <div class="c-detail">
+                  <span class="c-label">Domisili</span>
+                  <span class="c-val">Indonesia</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Social Links Large -->
+            <div class="social-large-group">
+              <a href="https://github.com" target="_blank" rel="noopener" class="social-pill">
+                <i class="fa-brands fa-github"></i> GitHub
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-pill">
+                <i class="fa-brands fa-linkedin"></i> LinkedIn
+              </a>
+              <a href="mailto:asmudin.dev@gmail.com" class="social-pill">
+                <i class="fa-solid fa-envelope"></i> Email
+              </a>
+              <a href="https://wa.me/6281234567890" target="_blank" rel="noopener" class="social-pill">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: Interactive Form -->
+          <div class="contact-form-card card-tilt" data-tilt>
+            <form id="contactForm" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="nameInput">Nama Lengkap <span class="req">*</span></label>
+                  <div class="input-wrapper">
+                    <i class="fa-solid fa-user input-icon"></i>
+                    <input type="text" id="nameInput" name="name" placeholder="Nama Anda" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="emailInput">Alamat Email <span class="req">*</span></label>
+                  <div class="input-wrapper">
+                    <i class="fa-solid fa-envelope input-icon"></i>
+                    <input type="email" id="emailInput" name="email" placeholder="email@contoh.com" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="serviceSelect">Kebutuhan Proyek / Layanan</label>
+                <div class="input-wrapper select-wrapper">
+                  <i class="fa-solid fa-shapes input-icon"></i>
+                  <select id="serviceSelect" name="service">
+                    <option value="sistem-informasi">Pengembangan Sistem Informasi (SIM / ERP / CRM)</option>
+                    <option value="codeigniter-mysql">Aplikasi Web CodeIgniter & Database MySQL</option>
+                    <option value="frontend-3d">Pengembangan Frontend (HTML, CSS, JS, 3D Web)</option>
+                    <option value="database-optim">Optimasi & Desain Basis Data MySQL</option>
+                    <option value="other">Kebutuhan Lainnya</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="messageInput">Pesan atau Kebutuhan Sistem <span class="req">*</span></label>
+                <div class="input-wrapper textarea-wrapper">
+                  <i class="fa-solid fa-message input-icon"></i>
+                  <textarea id="messageInput" name="message" rows="5" placeholder="Ceritakan kebutuhan sistem informasi, fitur yang diinginkan, atau pertanyaan Anda..." required></textarea>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-primary btn-submit-form" id="submitBtn">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>Kirim Pesan ke Asmudin</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <a href="#hero" class="brand-logo">
+          <span class="logo-icon"><i class="fa-solid fa-cube"></i></span>
+          <span class="logo-text">ASMUDIN<span class="text-accent">.DEV</span></span>
+        </a>
+        <p class="footer-tagline">Web Developer & Spesialis Sistem Informasi (CodeIgniter, MySQL, HTML, CSS, JavaScript, 3D WebGL).</p>
+      </div>
+
+      <div class="footer-center">
+        <p class="copyright-text">&copy; 2026 Asmudin. Seluruh hak cipta dilindungi undang-undang.</p>
+      </div>
+
+      <div class="footer-right">
+        <a href="#hero" class="btn-back-to-top" id="backToTop" title="Kembali ke Atas">
+          <i class="fa-solid fa-arrow-up"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CASE STUDY DETAIL MODAL -->
+  <div class="modal-overlay" id="projectModal">
+    <div class="modal-window">
+      <button class="modal-close-btn" id="modalCloseBtn" aria-label="Tutup Detail Proyek">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="modal-content" id="modalDynamicContent">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- CDNs: Three.js and GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- Project Scripts -->
+  <script src="js/audio-fx.js"></script>
+  <script src="js/three-scene.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
